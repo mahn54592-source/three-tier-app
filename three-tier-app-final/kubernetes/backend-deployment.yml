@@ -1,0 +1,26 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: backend-deployment
+  namespace: three
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend-container
+          image: izumi09/three-backend:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGO_CONN_STR
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: MONGO_CONN_STR
