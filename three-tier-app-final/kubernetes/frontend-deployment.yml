@@ -21,3 +21,28 @@ spec:
         env:
           - name: VITE_API_URL
             value: "http://backend-service"
+        startupProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 4
+        livenessProbe:
+          httpGet: 
+            path: /
+            port: 80
+          initialDelaySeconds: 7
+          periodSeconds: 6
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 2
+        resources:
+          requests: 
+            memory: 31Mi
+            cpu: 50m
+          limits:
+            memory: 64Mi 
+            cpu: 199m
